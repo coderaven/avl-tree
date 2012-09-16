@@ -2,7 +2,7 @@ Documentation
 ========
 
 This is the documentation for the source code. I'll update it from time to time if I found bugs or things that
-needs to be discussed.
+need to be discussed.
 
 #### Node Structure
 ```C
@@ -23,3 +23,28 @@ The node is composed of 1 value and 3 pointers: (This is a bit self-explanatory,
 There are also 2 global pointer variables used in the whole program:
 * tRoot 	: Points to the root of the whole tree
 * tLeaf		: Points to the last inserted leaf in the tree
+
+#### BST Insertion like functions
+```C
+struct node* newNode(int value,struct node *parent);  
+struct node* insertN(struct node *root,int value,struct node *parent);
+ ```
+
+The two functions are the core in creating a BST like structure.
+* newNode function 	: This function creates a basic node. Paremeters:
+	** value		: The value you want to put to the node.
+	** parent		: The parent of the Node (Can also be NULL).
+* insertN function	: This inserts a new node properly into the tree. Parameters:
+	** root			: Pointer to the root of the tree of where to insert the new node.
+	** value		: The value you want to insert.
+	** parent		: The parent of the new node you are inserting. (A bit redundant, but this helps a lot in tracking trees)
+	
+If you want a more thorough explanation of the BST functions,
+then you can go to this link: [Binary Search Tree Operations Explanation (Bisaya)](http://pastebin.com/DCkF4JAn)
+
+
+
+
+
+
+
