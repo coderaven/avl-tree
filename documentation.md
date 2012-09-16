@@ -1,5 +1,9 @@
+Screenshots
+===========
+![AVL Tree](http://i.imgur.com/wTLbV.png "Program Frame Screenshots")
+
 Documentation
-========
+=============
 
 This is the documentation for the source code. I'll update it from time to time if I found bugs or things that
 need to be discussed.

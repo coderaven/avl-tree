@@ -2,10 +2,10 @@
 // Feel free to use the source code for any of your project and don't forget to share! :)
 
 
-// Kung feeling nimo naka tabang ko... Ok ra sa ako libre burger. haha xD
+// Kung feel nimo mang libre, OK ra sa ako. haha xD
 
 #include <stdio.h>
-#include <math.h>
+#include <math.h> // for the abs() function. (Absolute value)
 
 
 struct node {
