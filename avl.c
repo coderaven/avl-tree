@@ -27,6 +27,7 @@ void rotateRL(struct node *root);
 
 void balanceCheck(struct node *root);
 void bFactorInorder(struct node *root);
+void correctParents(struct node *a,struct node *b,struct node *c,struct node *f);
 
 // Common Operations for BST structues
 struct node* searchNode(struct node *root, int value); // Return NULL if not found or Pointer to node if found
@@ -326,14 +327,8 @@ void rotateRL(struct node *root){
     }
     
     // Correct Parents
-    if (a->left  != NULL) a->left->parent  = a;
-    if (a->right != NULL) a->right->parent = a;
-    if (b->left  != NULL) b->left->parent  = b;
-    if (b->right != NULL) b->right->parent = b;
-    if (c->left  != NULL) c->left->parent  = c;
-    if (c->right != NULL) c->right->parent = c;
-    if (f  != NULL) f->left->parent  = f;
-    if (f  != NULL) f->right->parent = f;
+    correctParents(a,b,c,f);
+    
 }
 
 void rotateRR(struct node *root){
@@ -354,14 +349,7 @@ void rotateRR(struct node *root){
     }
     
     // Correct Parents
-    if (a->left  != NULL) a->left->parent  = a;
-    if (a->right != NULL) a->right->parent = a;
-    if (b->left  != NULL) b->left->parent  = b;
-    if (b->right != NULL) b->right->parent = b;
-    if (c->left  != NULL) c->left->parent  = c;
-    if (c->right != NULL) c->right->parent = c;
-    if (f  != NULL) f->left->parent  = f;
-    if (f  != NULL) f->right->parent = f;
+    correctParents(a,b,c,f);
 }
 
 void rotateLR(struct node *root){
@@ -384,14 +372,7 @@ void rotateLR(struct node *root){
     }
     
     // Correct Parents
-    if (a->left  != NULL) a->left->parent  = a;
-    if (a->right != NULL) a->right->parent = a;
-    if (b->left  != NULL) b->left->parent  = b;
-    if (b->right != NULL) b->right->parent = b;
-    if (c->left  != NULL) c->left->parent  = c;
-    if (c->right != NULL) c->right->parent = c;
-    if (f != NULL) f->left->parent  = f;
-    if (f != NULL) f->right->parent = f;
+    correctParents(a,b,c,f);
 }
 
 void rotateLL(struct node *root){
@@ -412,14 +393,17 @@ void rotateLL(struct node *root){
     }
     
     // Correct Parents
+    correctParents(a,b,c,f);
+}
+
+void correctParents(struct node *a,struct node *b,struct node *c,struct node *f){
     if (a->left  != NULL) a->left->parent  = a;
     if (a->right != NULL) a->right->parent = a;
     if (b->left  != NULL) b->left->parent  = b;
     if (b->right != NULL) b->right->parent = b;
     if (c->left  != NULL) c->left->parent  = c;
     if (c->right != NULL) c->right->parent = c;
-    if (f != NULL) f->left->parent  = f;
-    if (f != NULL) f->right->parent = f;
+    if (f  != NULL) f->left->parent  = f;
+    if (f  != NULL) f->right->parent = f;
 }
-
 
