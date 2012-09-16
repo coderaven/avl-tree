@@ -9,6 +9,20 @@ So I decided to document just the functions in a way you'll understand how it wo
 the rest for you to debug and understand, this is a good way to really understand what's going on
 the code. (Don't worry, almost everything is discussed) - Raven G. Duran
 
+#### Main Program flow
+```C
+void showMenu();
+void doInsert();
+void doDelete();
+void doSearch();
+void doInOrder();
+ ```
+These are program specific functions use in directing our porgram flow.
+* showMenu()	: Shows the menu with waits for the user to enter a menu choice.
+* doInsert()	: A menu function that will handle the insertion process of the AVL tree.
+* doDelete()	: A menu function that will handle the deletion process of the AVL tree.
+* doInorder()	: A menu function that will handle the printing of the tree in order traversal.
+
 #### Node Structure
 ```C
  struct node {
@@ -96,3 +110,50 @@ The balance factor is calculated as: abs(heightLeft - heightRight). abs means ge
 This function is a bit trivial. It just corrects the pointer to parent for each and every 
 affected nodes in the rotation. (Parents of A, B , C, and F)
 
+#### Helper functions
+```C
+struct node* searchNode(struct node *root, int value); // Return NULL if not found or Pointer to node if found
+struct node* findMin(struct node *root);  
+struct node* findMax(struct node *root); 
+int getHeight(struct node *root);
+ ```
+Helper functions are used in bigger functions to make it work. These functions are of big help
+in structuring the AVL tree.
+
+* searchNode	: Searches a node base by the value given to it. 
+				  Returns (or equal to) NULL if the value is not found.
+				  Returns (or equal to) the pointer to that node if it is found. Parameters:
+	1. root		: Root of the tree you want to search the node on.
+	2. value	: The value you want to search for.
+* findMin		: Finds the minimum number in the given tree. (Gets the successor) The paremeter is the root.
+* findMax		: Finds the maximum number in the given tree. (Gets the predecessor) The parameter is the root.
+* getHegiht		: This function gets the height of a given tree and return that in integer. The paremeter is the root.
+
+#### InOrder
+```C
+void inOrder(struct node *root);
+ ```
+This is just a trivial function that in Orderly traverse a given tree.
+In Orderly traverse means that the whole tree will be traversed in ascending order.
+If the node it puts are arrange correctly (increasing), then that means our solution worked!
+
+#### Finally
+######Comments? Suggestions? Problems?
+You can place an issue (by going to the Issues tab above) so that I could get to the problem more easily.
+You could also send me an email if anything bugs you at: me@ImRaven.com
+Or if you're an MUST student, you can ask for help personally at school.
+
+Hope it helped :)
+	
+	
+P.S. : If you have a better algorithm or if there is a part in my solution that need
+to be refactored, then feel free to make a pull request! :) 
+	
+	
+(Bisaya)
+Sa akong mga amigo nga nakakita ani nga solution : Walay libre dira? HAHA xD	
+k-thnks-bye	
+	
+	
+	
+	

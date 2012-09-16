@@ -15,6 +15,13 @@ struct node {
     struct node *right;
 } *tRoot = NULL, *tLeaf = NULL;
 
+// Menu functions
+void showMenu();
+void doInsert();
+void doDelete();
+void doSearch();
+void doInOrder();
+
 // Functions for creating a BST structure
 struct node* newNode(int value,struct node *parent);  
 struct node* insertN(struct node *root,int value,struct node *parent);
@@ -36,13 +43,6 @@ struct node* findMax(struct node *root);
 int getHeight(struct node *root);   // Note: This is a generic getHeight function if you want
                                     // to do as ask by Ma'am Raboy for the project to have getHeight of root, left and right
                                     // then just use these: getHeight(root), getHeight(root->left), getHeight(root->right)
-// Menu functions
-void showMenu();
-void doInsert();
-void doDelete();
-void doSearch();
-void doInOrder();
-
 // InOrder print
 void inOrder(struct node *root);
 
@@ -214,98 +214,7 @@ struct node* insertN(struct node *root,int value,struct node *parent){
        }
 }
 
-struct node* searchNode(struct node *root, int value){
-    if (root == NULL) return NULL;
-    else {
-         if (root->value == value) return root;
-         else {
-              if (value < root->value) return searchNode(root->left,value);
-              else return searchNode(root->right,value);
-         }
-    }
-}
-
-int getHeight(struct node *root){
-   if (root==NULL) 
-       return 0;
-   else
-   {
-       /* compute the depth of each subtree */
-       int lDepth = getHeight(root->left);
-       int rDepth = getHeight(root->right);
- 
-       /* use the larger one */
-       if (lDepth > rDepth) 
-           return(lDepth+1);
-       else return(rDepth+1);
-   }
-} 
-
-struct node* findMin(struct node *root){ 
-    // Go to left most part to get the minimum
-    while (root->left != NULL) {
-       root = root->left;
-    }
-    
-    return(root);
-}
-
-struct node* findMax(struct node *root){
-   // Go to right most part to get the maximum
-   while (root->right != NULL) {
-       root = root->right;
-    }
-    
-    return(root);
-}
-
-void inOrder(struct node *root){
-     if (root == NULL) return;
-     else {
-          inOrder(root->left);
-          printf("~%d~\n",root->value);
-          inOrder(root->right);
-     }
-}
-
-void bFactorInorder(struct node *root){
-     if (root == NULL) return;
-     else {
-          bFactorInorder(root->left);
-          bFactorInorder(root->right);
-          
-          int rHeight = getHeight(root->right);
-          int lHeight = getHeight(root->left);
-          int bFactor = abs(rHeight - lHeight);
-          printf("~Node %d~ \t lHeight: %d \t rHeight: %d \t Balance Factor: %d\n",root->value,lHeight,rHeight,bFactor);                              
-     }
-}
-
 // AVL Functions - As AVL tree is derived from Binary Search Trees
-
-void balanceCheck(struct node *root){     
-     if ( getHeight(root->left) > (getHeight(root->right) + 1) ){
-        printf("Imbalance! The Right sub-tree of node %d is taller!\n",root->value);
-        if ( getHeight(root->left->right) > (getHeight(root->left->left)) ){
-           printf("Rotating using LR Rotation...\n");
-           rotateLR(root);
-        } else {
-          printf("Rotating using LL Rotation...\n");
-          rotateLL(root);
-        }
-        
-     } else if ( getHeight(root->right) > (getHeight(root->left) + 1) ){
-        printf("Imbalance! The Right sub-tree of node %d is taller!\n",root->value);
-        
-        if ( getHeight(root->right->left) > (getHeight(root->right->right)) ){
-           printf("Rotating using RL Rotation...\n");
-           rotateRL(root);
-        } else {
-           printf("Rotating using RR Rotation...\n");
-           rotateRR(root);
-        }
-     }
-}
 
 void rotateRL(struct node *root){
     struct node *a = root;
@@ -396,6 +305,43 @@ void rotateLL(struct node *root){
     correctParents(a,b,c,f);
 }
 
+void balanceCheck(struct node *root){     
+     if ( getHeight(root->left) > (getHeight(root->right) + 1) ){
+        printf("Imbalance! The Right sub-tree of node %d is taller!\n",root->value);
+        if ( getHeight(root->left->right) > (getHeight(root->left->left)) ){
+           printf("Rotating using LR Rotation...\n");
+           rotateLR(root);
+        } else {
+          printf("Rotating using LL Rotation...\n");
+          rotateLL(root);
+        }
+        
+     } else if ( getHeight(root->right) > (getHeight(root->left) + 1) ){
+        printf("Imbalance! The Right sub-tree of node %d is taller!\n",root->value);
+        
+        if ( getHeight(root->right->left) > (getHeight(root->right->right)) ){
+           printf("Rotating using RL Rotation...\n");
+           rotateRL(root);
+        } else {
+           printf("Rotating using RR Rotation...\n");
+           rotateRR(root);
+        }
+     }
+}
+
+void bFactorInorder(struct node *root){
+     if (root == NULL) return;
+     else {
+          bFactorInorder(root->left);
+          bFactorInorder(root->right);
+          
+          int rHeight = getHeight(root->right);
+          int lHeight = getHeight(root->left);
+          int bFactor = abs(rHeight - lHeight);
+          printf("~Node %d~ \t lHeight: %d \t rHeight: %d \t Balance Factor: %d\n",root->value,lHeight,rHeight,bFactor);                              
+     }
+}
+
 void correctParents(struct node *a,struct node *b,struct node *c,struct node *f){
     if (a->left  != NULL) a->left->parent  = a;
     if (a->right != NULL) a->right->parent = a;
@@ -405,5 +351,59 @@ void correctParents(struct node *a,struct node *b,struct node *c,struct node *f)
     if (c->right != NULL) c->right->parent = c;
     if (f  != NULL) f->left->parent  = f;
     if (f  != NULL) f->right->parent = f;
+}
+
+struct node* searchNode(struct node *root, int value){
+    if (root == NULL) return NULL;
+    else {
+         if (root->value == value) return root;
+         else {
+              if (value < root->value) return searchNode(root->left,value);
+              else return searchNode(root->right,value);
+         }
+    }
+}
+
+int getHeight(struct node *root){
+   if (root==NULL) 
+       return 0;
+   else
+   {
+       /* compute the depth of each subtree */
+       int lDepth = getHeight(root->left);
+       int rDepth = getHeight(root->right);
+ 
+       /* use the larger one */
+       if (lDepth > rDepth) 
+           return(lDepth+1);
+       else return(rDepth+1);
+   }
+} 
+
+struct node* findMin(struct node *root){ 
+    // Go to left most part to get the minimum
+    while (root->left != NULL) {
+       root = root->left;
+    }
+    
+    return(root);
+}
+
+struct node* findMax(struct node *root){
+   // Go to right most part to get the maximum
+   while (root->right != NULL) {
+       root = root->right;
+    }
+    
+    return(root);
+}
+
+void inOrder(struct node *root){
+     if (root == NULL) return;
+     else {
+          inOrder(root->left);
+          printf("~%d~\n",root->value);
+          inOrder(root->right);
+     }
 }
 
