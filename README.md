@@ -2,7 +2,10 @@ AVL Tree
 ========
 ( NOTE: I used DevC++ as the IDE when coding. Some of the functions such as getch() is not applicable to
 some IDE like Netbeans. If however you would want to use Netbeans, then just change the getch() parts
-into a scanf() and debug! :)) 
+into a scanf(), change the switch() to get an integer not a character and debug! :)) 
+
+UPDATE: There is no windows like system() calls in netbeans and codeblocks since their consoles are of Unix type.
+For this, you need to delete all the lines having "system("pause");" and "system("cls");".
 
 An AVL tree is a self balancing Binary Search Tree.
 It makes your algorithm more stable by making the time effeciency to O(log n).
