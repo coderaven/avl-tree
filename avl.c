@@ -196,7 +196,7 @@ void doInOrder(){
 }
 
 struct node* newNode(int value,struct node *parent){
-       struct node *root = malloc(sizeof(struct node));
+       struct node *root = (struct node*)malloc(sizeof(struct node));
        root->value = value;
        root->parent = parent;
        root->left = NULL;
