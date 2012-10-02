@@ -1,4 +1,8 @@
 // Algrotihm design and Code implemented from scratch by Raven G. Duran - BSIT - 2R1 MUST
+// Feel free to use the source code for any of your project and don't forget to share! :)
+
+
+// Kung feel nimo mang libre, OK ra sa ako. haha xD
 
 #include <stdio.h>
 #include <math.h> // for the abs() function. (Absolute value)
@@ -120,7 +124,17 @@ void doDelete(){
              }
              
              dNode = NULL;
-          } else if (dNode->left != NULL){
+          } else if (dNode->right != NULL){
+             successor = findMin(dNode->right); // Get successor
+             // update successor parent
+             if (successor->parent->right != NULL) {
+                if (successor->parent->right->value == successor->value) successor->parent->right = NULL;
+             } else successor->parent->left = NULL;
+             
+              // swap with predecessor
+             dNode->value = successor->value;
+             free(successor);
+          } else {
              predecessor = findMax(dNode->left); // Get predecessor
              // update predecessor parent
              if (predecessor->parent->left != NULL) {
@@ -130,17 +144,6 @@ void doDelete(){
              // swap with predecessor
              dNode->value = predecessor->value;
              free(predecessor);
-             
-          } else {
-             successor = findMin(dNode->right); // Get successor
-             // update successor parent
-             if (successor->parent->left != NULL) {
-                if (successor->parent->left->value == successor->value) successor->parent->left = NULL;
-             } else successor->parent->right = NULL;
-             
-              // swap with predecessor
-             dNode->value = successor->value;
-             free(successor);
           }
           
           if (temp->parent != NULL) balanceCheck(temp->parent);
