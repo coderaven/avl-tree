@@ -133,25 +133,31 @@ void doDelete(){
              dNode = NULL;
           } else if (dNode->left != NULL){
              predecessor = findMax(dNode->left); // Get predecessor
-             // update predecessor parent
-             if (predecessor->parent->left != NULL) {
-                if (predecessor->parent->left->value == predecessor->value) predecessor->parent->left = NULL;
-             } else predecessor->parent->right = NULL;
-
+             
              // swap with predecessor
-             dNode->value = predecessor->value;
-             free(predecessor);
+             if (predecessor->left != NULL){
+                if (predecessor->parent->right == predecessor)predecessor->parent->right = predecessor->left;
+                else predecessor->parent->left = predecessor->left;
+                
+                predecessor->left->parent = predecessor->parent;
+             }        
+                  
+                dNode->value = predecessor->value;
+                free(predecessor);
              
           } else {
              successor = findMin(dNode->right); // Get successor
              // update successor parent
-             if (successor->parent->left != NULL) {
-                if (successor->parent->left->value == successor->value) successor->parent->left = NULL;
-             } else successor->parent->right = NULL;
-             
-              // swap with predecessor
-             dNode->value = successor->value;
-             free(successor);
+             // swap with predecessor
+             if (successor->right != NULL){
+                if (successor->parent->right == successor)successor->parent->right = successor->right;
+                else successor->parent->left = successor->right;
+                
+                successor->right->parent = successor->parent;
+             }        
+                  
+                dNode->value = successor->value;
+                free(successor);
           }
           
           if (temp->parent != NULL) balanceCheck(temp->parent);
