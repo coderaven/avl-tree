@@ -17,6 +17,7 @@ void doInsert();
 void doDelete();
 void doSearch();
 void doInOrder();
+void doShowHeight();
 
 // Functions for creating a BST structure
 struct node* newNode(int value,struct node *parent);  
@@ -61,13 +62,15 @@ void showMenu(){
     printf("(2) Delete a Node\n");
     printf("(3) Search a Node\n");
     printf("(4) Print In Order\n");
-    printf("(5) Exit\n");
+    printf("(5) Show Heights of Root\n");
+    printf("(6) Exit\n");
     
     switch(getch()){
        case '1' : doInsert();   break;
        case '2' : doDelete();   break;
        case '3' : doSearch();   break;
        case '4' : doInOrder();   break;
+       case '5' : doShowHeight();   break;
        default  : exit(0);
     }
 }
@@ -201,6 +204,20 @@ void doInOrder(){
      printf("\n\n\nPress any key to continue...");
      getch();
      showMenu();
+}
+
+void doShowHeight(){
+    system("cls"); 
+    printf("--- Show Heights ---\n");
+    if (tRoot!= NULL){
+        printf("Node %d Height: %d\n",tRoot->value,getHeight(tRoot));
+        printf("Node %d Left sub-tree Height: %d\n",tRoot->value,getHeight(tRoot->left));
+        printf("Node %d Right subtree Height: %d\n",tRoot->value,getHeight(tRoot->right));
+    } else printf("The tree is empty!\n"); 
+    
+    printf("\n\n\nPress any key to continue...");
+    getch();
+    showMenu();
 }
 
 struct node* newNode(int value,struct node *parent){
