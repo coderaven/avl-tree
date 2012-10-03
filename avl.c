@@ -109,7 +109,7 @@ void doDelete(){
      dNode = searchNode(tRoot,toDelete);
 
      if (dNode == NULL) printf("The node does not exist!\n");
-     else if(dNode == tRoot) {
+     else if(dNode == tRoot && dNode->left == NULL && dNode->right == NULL) {
         free(dNode);
         tRoot = NULL;
         dNode = NULL;
@@ -373,18 +373,16 @@ struct node* searchNode(struct node *root, int value){
 }
 
 int getHeight(struct node *root){
-   if (root==NULL || root == tRoot) 
-       return 0;
-   else
-   {
+   if (root==NULL) return 0;
+   else {
        /* compute the depth of each subtree */
        int lDepth = getHeight(root->left);
        int rDepth = getHeight(root->right);
  
        /* use the larger one */
        if (lDepth > rDepth) 
-           return(lDepth+1);
-       else return(rDepth+1);
+           return (root == tRoot? lDepth : (lDepth+1) );
+       else return (root == tRoot? rDepth : (rDepth+1) );
    }
 } 
 
