@@ -107,10 +107,18 @@ void doDelete(){
      scanf("%d",&toDelete);
      
      dNode = searchNode(tRoot,toDelete);
-     
+
      if (dNode == NULL) printf("The node does not exist!\n");
-     else {
-          printf("The node is deleted!\n");
+     else if(dNode == tRoot) {
+        free(dNode);
+        tRoot = NULL;
+        dNode = NULL;
+        printf("Node with value %d is deleted!\nThe tree is now empty.\n");
+        printf("\n\n\nPress any key to continue...");
+        getch();
+        showMenu();
+     } else {
+          printf("Deleting node...\n");
           temp = dNode;
           if (dNode->left == NULL && dNode->right == NULL){   // Case 1 : leaf
              if (tRoot == dNode) tRoot = NULL;
@@ -145,6 +153,10 @@ void doDelete(){
           
           if (temp->parent != NULL) balanceCheck(temp->parent);
           temp = NULL;
+          
+          printf("The node is now deleted!\n");
+          
+          if(dNode != NULL) balanceCheck(dNode);
           
           printf("\n--Balance Factor Sheet--\n");
           if (tRoot != NULL) bFactorPostOrder(tRoot);
@@ -361,7 +373,7 @@ struct node* searchNode(struct node *root, int value){
 }
 
 int getHeight(struct node *root){
-   if (root==NULL) 
+   if (root==NULL || root == tRoot) 
        return 0;
    else
    {
