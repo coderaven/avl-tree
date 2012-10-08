@@ -37,9 +37,9 @@ void correctParents(struct node *a,struct node *b,struct node *c,struct node *f)
 struct node* searchNode(struct node *root, int value); // Return NULL if not found or Pointer to node if found
 struct node* findMin(struct node *root);  
 struct node* findMax(struct node *root); 
-int getHeight(struct node *root);   // Note: This is a generic getHeight function if you want
-                                    // to do as ask by Ma'am Raboy for the project to have getHeight of root, left and right
-                                    // then just use these: getHeight(root), getHeight(root->left), getHeight(root->right)
+int getHeight(struct node *root);
+int getHeightRoot(struct node *root); // Getting height of root
+
 // InOrder print
 void inOrder(struct node *root);
 
@@ -140,11 +140,14 @@ void doDelete(){
                 else predecessor->parent->left = predecessor->left;
                 
                 predecessor->left->parent = predecessor->parent;
+             } else {
+                if (predecessor->parent->right == predecessor)predecessor->parent->right = NULL;
+                else predecessor->parent->left = NULL;
              }        
-                  
+                
                 dNode->value = predecessor->value;
+                
                 free(predecessor);
-             
           } else {
              successor = findMin(dNode->right); // Get successor
              // update successor parent
@@ -154,7 +157,10 @@ void doDelete(){
                 else successor->parent->left = successor->right;
                 
                 successor->right->parent = successor->parent;
-             }        
+             } else {
+                if (successor->parent->right == successor)successor->parent->right = NULL;
+                else successor->parent->left = NULL;
+             }          
                   
                 dNode->value = successor->value;
                 free(successor);
@@ -187,7 +193,7 @@ void doSearch(){
     struct node *nodeF = searchNode(tRoot,toFind);
     if (nodeF!= NULL){
         printf("Found Node %d!\n",toFind);
-        printf("Node %d Height: %d\n",toFind,getHeight(nodeF));
+        printf("Node %d Height: %d\n",toFind,getHeightRoot(nodeF));
         printf("Node %d Left sub-tree Height: %d\n",toFind,getHeight(nodeF->left));
         printf("Node %d Right subtree Height: %d\n",toFind,getHeight(nodeF->right));
     } else printf("Not found!\n"); 
@@ -369,7 +375,7 @@ void bFactorPostOrder(struct node *root){
           int rHeight = getHeight(root->right);
           int lHeight = getHeight(root->left);
           int bFactor = abs(rHeight - lHeight);
-          printf("~Node %d~ \t lHeight: %d \t rHeight: %d \t Balance Factor: %d\n",root->value,lHeight,rHeight,bFactor);                              
+          if (root->value != (int)NULL) printf("~Node %d~ \t lHeight: %d \t rHeight: %d \t Balance Factor: %d\n",root->value,lHeight,rHeight,bFactor);                              
      }
 }
 
@@ -409,6 +415,14 @@ int getHeight(struct node *root){
    }
 } 
 
+int getHeightRoot(struct node *root){
+    if (root == NULL) return 0;
+    else {
+         if (getHeight(root->left) > getHeight(root->right)) return getHeight(root->left);
+         else return getHeight(root->right);
+    }
+}
+
 struct node* findMin(struct node *root){ 
     // Go to left most part to get the minimum
     while (root->left != NULL) {
@@ -431,7 +445,7 @@ void inOrder(struct node *root){
      if (root == NULL) return;
      else {
           inOrder(root->left);
-          printf("~%d~\n",root->value);
+          if (root->value != (int)NULL)printf("~%d~\n",root->value);
           inOrder(root->right);
      }
 }
